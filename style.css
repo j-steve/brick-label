@@ -1,0 +1,172 @@
+body {
+  background: white;
+  color: rgb(15, 15, 15);
+  font-weight: 300;
+  margin: 0;
+  font-family: Helvetica neue, roboto;
+  text-align: center;
+  padding-top: 46px;
+  padding-left: 6px;
+}
+
+#top-padding {
+  height: 30px;
+  width: 100%;
+  background: rgb(243, 243, 243);
+}
+
+#labels {
+  font-family: sans-serif;
+  width: 800px;
+}
+
+.part {
+  height: 48px /* 0.5  in */;
+  width: 162px /* 1.75 in */;
+  display: inline-block;
+  position: relative;
+  margin-bottom: -4px;
+  margin-left: 34px;
+}
+
+.part:nth-child(4n-3) {
+  margin-left: 0;
+}
+
+/*
+.inner {
+  height: 100%;
+  display: flex;
+}
+
+.left, .middle, .right {
+  flex-grow: 1;
+}
+
+.middle {
+  background:blue;
+}
+.right {
+  background: red;
+}
+
+.righthand {
+  float:right;
+  text-align: right;
+  width: 72px;
+  height: 50px;
+  overflow: hidden;
+  margin-left:-72px;
+}*/
+
+.category {
+  position:absolute;
+  top: 2px;
+  left: 2px;
+  font-size: 7px;
+  font-weight: bold;
+  background: rgb(100, 100, 100);
+  padding: 2px 5px;
+  max-width: 55px;
+  color:white;
+  border-radius:2px;
+}
+
+.part-title {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  font-size: 16px;
+}
+.part-title.title-numeric {
+  font-size: 20px;
+}
+
+.part-title:not(.title-numeric) + .part-subtitle {
+  margin-top:-4px;
+}
+
+.part-subtitle  {
+  position:absolute;
+  top: 24px;
+  right:2px;
+  width: 60px;
+  font-size: 10px;
+  line-height: 8px;
+  text-align: right;
+  overflow:hidden;
+}
+
+.icon-container {
+  z-index: -1;
+  position: absolute;
+  top:5px;
+  left:2px;
+  right:2px;
+  bottom:5px;
+}
+img.icon {
+  height: 32px;
+  width: auto;
+  opacity:.7; 
+}
+img.icon.colored {
+  opacity: 1;
+  filter: grayscale(100%);
+}
+.part-number {
+  font-size: 8px;
+  font-family: monospace;
+  margin-top: -5px;
+  color:rgb(15, 15, 15);
+}
+
+.size {
+  float: left;
+  bottom: -10PX;
+  position: relative;
+  font-family: monospace;
+  font-size: 30px;
+  width: 18px;
+  margin-right: -18px;
+  color:silver;
+}
+
+.color {
+  position: absolute;
+  left: 2px;
+  bottom: 2px;
+  height: 16px;
+  width: 16px;
+  border: 2px solid rgb(75, 75, 75);
+  border-radius: 3px;
+}
+.color.translucent {
+  border-style: dashed;
+}
+.color-inner {
+  height:100%;
+  width:100%;
+}
+.color-inner.rainbow {
+  background: linear-gradient(to bottom right, red 0%, orange 20%, yellow 40%, green 60%, blue 80%, purple 90%);
+}
+.color.translucent .color-inner {
+  opacity: .5;
+}
+
+/*
+.dimension-container {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+}
+
+.dimension-container > * {
+  display: inline-block;
+  border: 1px dashed silver;
+  width:20px;
+  font-size: 20px;
+  text-align: center;
+}
+*/
