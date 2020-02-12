@@ -120,5 +120,5 @@ const LEGOS3 = [
   {id: 3020},
   {id: '3062b', colorTranslucent: true},
   {id: 15469, imageColor: 156},
-  {id:  65617},
+  {id:  65617, imageColor: 86},
 ];
