@@ -3,7 +3,6 @@ body {
   color: rgb(15, 15, 15);
   font-weight: 300;
   margin: 0;
-  font-family: Helvetica neue, roboto;
   text-align: center;
   padding-top: 46px;
   padding-left: 6px;
@@ -91,6 +90,11 @@ img.icon.colored {
   font-family: monospace;
   margin-top: -5px;
   color:rgb(15, 15, 15);
+}
+.part-number span + span:before {
+  content: '|';
+  margin-left:1px;
+  margin-right:1px;
 }
 
 /* Color Box */

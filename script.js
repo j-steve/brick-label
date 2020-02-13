@@ -76,7 +76,16 @@ function buildLabelElement(part) {
     .appendTo($container);
   $('<img>').addClass('icon').toggleClass('colored', !!part.imageColor || !!part.imagePath).prop('src', part.imgPath).appendTo($iconContainer);
   if (!part.hideId) {
-    $('<div>').addClass('part-number').text(part.assorted ? '(assorted)' : part.id).appendTo($iconContainer);
+    $partNum = $('<div>').addClass('part-number').appendTo($iconContainer);
+    if (part.assorted) {
+      $partNum.text('(assorted)')
+    } else {
+      const ids = [part.id, part.id2].filter(x => x);
+      ids.sort(idSort);
+      ids.forEach(partId => {
+        $('<span>').text(partId).appendTo($partNum);
+      });
+    }
   }
 
   const useNumericFont = part.isTitleNumeric && part.title.split('×').length < 3;
@@ -99,4 +108,14 @@ function buildLabelElement(part) {
       $colorInner.addClass('rainbow');
     }
   }
+}
+
+const ID_PARTS = /^(^\d+)(\D+.*)?$/;
+function idSort(a, b) {
+  const [aMatch, aDigits, aLetters] = ID_PARTS.exec(a);
+  const [bMatch, bDigits, bLetters] = ID_PARTS.exec(b);
+  if (aDigits == bDigits) {
+    return (a.Letters || '').localeCompare(b.Letters || '');
+  }
+  return +aDigits < +bDigits ? -1 : 1;
 }
