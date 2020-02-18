@@ -10,4 +10,8 @@ const COLOR = {
   white:'#fff',
   green: '#237841',
   mediumDarkFlesh: '#cc702a',
+  pearlGold: '#AA7F2E',
+  brown: '#583927',
+  transNeonOrange: '#FF800D',
+  transLightBlue: '#AEEFEC',
 };

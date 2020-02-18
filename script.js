@@ -8,19 +8,26 @@ const BRICKLINK = {
 const TITLE_REGEX = /^(?:(?<d1>\d+) x (?<d2>\d+)(?: x (?<d3>\d+))? ?)?(?<title>[\w  ]+)?/;
 const SUBTITLE_REGEX = /^(?<title>[\w ]+?)(?: with (?<subtitle>[\w ]+))?$/;
 
-LEGOS3.forEach(createLabel);
+LEGOS4.forEach(createLabel);
 
 function createLabel(part) {
   getBricklinkHtml(part.id).then(([partTitle, category]) => {
     part.category = part.category || category;
+    if (part.category == 'Minifigure, Utensil') {
+      part.category = 'Object';
+    } else if (part.category == 'Animal, Body Part') {
+      part.category = 'Animal, Part';
+    } else if (part.category == 'Tail') {
+      part.category = 'Vehicle';
+    }
     if (partTitle.startsWith(category)) {
       partTitle = partTitle.substr(category.length + 1);
     }
     const titleGroups = TITLE_REGEX.exec(part.title || partTitle).groups;
     part.title = (part.title || partTitle)
       .replace(/ x /g, '×')
-      .replace(/ 1\/3/g, '⅓')
-      .replace('2/3', '⅔')
+      .replace(/ ?1\/3/g, '⅓')
+      .replace(/ ?2\/3/g, '⅔')
       .replace(/^\d\d /g, '')
       .replace(' - ', ' ');
     let withSplitSubTitle;
@@ -80,7 +87,7 @@ function buildLabelElement(part) {
     if (part.assorted) {
       $partNum.text('(assorted)')
     } else {
-      const ids = [part.id, part.id2].filter(x => x);
+      const ids = [part.id].concat(part.otherIds || []).filter(x => x);
       ids.sort(idSort);
       ids.forEach(partId => {
         $('<span>').text(partId).appendTo($partNum);
@@ -111,11 +118,12 @@ function buildLabelElement(part) {
 }
 
 const ID_PARTS = /^(^\d+)(\D+.*)?$/;
+
 function idSort(a, b) {
   const [aMatch, aDigits, aLetters] = ID_PARTS.exec(a);
   const [bMatch, bDigits, bLetters] = ID_PARTS.exec(b);
   if (aDigits == bDigits) {
-    return (a.Letters || '').localeCompare(b.Letters || '');
+    return (aLetters || '').localeCompare(bLetters || '');
   }
   return +aDigits < +bDigits ? -1 : 1;
 }
