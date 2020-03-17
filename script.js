@@ -12,18 +12,7 @@ LEGOS6.forEach(createLabel);
 
 function createLabel(part) {
   getBricklinkHtml(part.id).then(([partTitle, category]) => {
-    part.category = part.category || category;
-    if (part.category == 'Minifigure, Utensil') {
-      part.category = 'Object';
-    } else if (part.category == 'Minifigure, Weapon') {
-      part.category = 'Object, Weapon';
-    } else if (part.category == 'Minifigure, Headgear') {
-      part.category = 'Object, Apparel';
-    } else if (part.category == 'Animal, Body Part') {
-      part.category = 'Animal, Part';
-    } else if (part.category == 'Tail') {
-      part.category = 'Vehicle, Tail';
-    }
+    part.category = getCategory(part.category || category);
     if (partTitle.startsWith(category)) {
       partTitle = partTitle.substr(category.length + 1);
     }
@@ -53,6 +42,25 @@ function createLabel(part) {
     part.imgPath = part.imagePath || `https://img.bricklink.com/ItemImage/PN/${part.imageColor || 11}/${part.id}.png`
     buildLabelElement(part);
   });
+}
+
+function getCategory(originalCategory) {
+  switch(originalCategory) {
+    case 'Minifigure, Utensil': 
+      return 'Object';
+    case 'Minifigure, Weapon': 
+      return 'Object, Weapon';
+    case 'Minifigure, Headgear': 
+      return 'Object, Apparel';
+    case 'Animal, Body Part': 
+      return 'Animal, Part';
+    case 'Tail':
+      return 'Vehicle, Tail';
+    case 'Aircraft':
+      return 'Vehicle, Aircraft';
+    default:
+      return originalCategory;
+  }
 }
 
 function getBricklinkHtml(partId) {
@@ -115,8 +123,6 @@ function buildLabelElement(part) {
       $colorInner.css('background-color', part.color);
     } else if (part.color1 && part.color2) {
       const gradiant = `linear-gradient(to bottom right, ${part.color1} 0%, ${part.color1} 49%, ${part.color2} 51%, ${part.color2} 100%)`;
-
-      console.log(gradiant)
       $colorInner.css('background', gradiant);
     } else {
       $colorInner.addClass('rainbow');

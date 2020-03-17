@@ -437,4 +437,8 @@ const LEGOS6 = [
   {id:'4864a'},
   {id: 87552},
   {id: '2536b', imagePath: 'https://img.bricklink.com/ItemImage/PN/8/2536a.png', color1: COLOR.brown, color2: COLOR.black, title: 'Palm', subtitle: 'Trunk'},
+  {id: 6020},
+  {id: 6016, otherIds: 62113},
+  {id: 4588},
+  {id: '4868a', imageColor: 7, title: 'Engine', subtitle: 'w/ 1×2 Plate'},
 ];
