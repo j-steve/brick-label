@@ -8,17 +8,21 @@ const BRICKLINK = {
 const TITLE_REGEX = /^(?:(?<d1>\d+) x (?<d2>\d+)(?: x (?<d3>\d+))? ?)?(?<title>[\w  ]+)?/;
 const SUBTITLE_REGEX = /^(?<title>[\w ]+?)(?: with (?<subtitle>[\w ]+))?$/;
 
-LEGOS4.forEach(createLabel);
+LEGOS6.forEach(createLabel);
 
 function createLabel(part) {
   getBricklinkHtml(part.id).then(([partTitle, category]) => {
     part.category = part.category || category;
     if (part.category == 'Minifigure, Utensil') {
       part.category = 'Object';
+    } else if (part.category == 'Minifigure, Weapon') {
+      part.category = 'Object, Weapon';
+    } else if (part.category == 'Minifigure, Headgear') {
+      part.category = 'Object, Apparel';
     } else if (part.category == 'Animal, Body Part') {
       part.category = 'Animal, Part';
     } else if (part.category == 'Tail') {
-      part.category = 'Vehicle';
+      part.category = 'Vehicle, Tail';
     }
     if (partTitle.startsWith(category)) {
       partTitle = partTitle.substr(category.length + 1);
@@ -28,6 +32,7 @@ function createLabel(part) {
       .replace(/ x /g, '×')
       .replace(/ ?1\/3/g, '⅓')
       .replace(/ ?2\/3/g, '⅔')
+      .replace(/ ?3\/4/g, '¾')
       .replace(/^\d\d /g, '')
       .replace(' - ', ' ');
     let withSplitSubTitle;
@@ -110,6 +115,8 @@ function buildLabelElement(part) {
       $colorInner.css('background-color', part.color);
     } else if (part.color1 && part.color2) {
       const gradiant = `linear-gradient(to bottom right, ${part.color1} 0%, ${part.color1} 49%, ${part.color2} 51%, ${part.color2} 100%)`;
+
+      console.log(gradiant)
       $colorInner.css('background', gradiant);
     } else {
       $colorInner.addClass('rainbow');

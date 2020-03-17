@@ -38,6 +38,7 @@ body {
   max-width: 55px;
   color:white;
   border-radius:2px;
+  white-space: nowrap;
 }
 
 /* Title & Subtitle */

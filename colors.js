@@ -14,4 +14,7 @@ const COLOR = {
   brown: '#583927',
   transNeonOrange: '#FF800D',
   transLightBlue: '#AEEFEC',
+  transDarkBlue: '#0020A0',
+  darkPurple: '#3F3691',
+  tan: '#E4CD9E',
 };
