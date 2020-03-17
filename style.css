@@ -66,6 +66,14 @@ body {
   text-align: right;
 }
 
+/* For subtitles with explicitly specified lines. */
+.part-subtitle p {
+  margin: 0;
+  white-space: nowrap;
+  float: right;
+  clear: right;
+}
+
 /* Icon & Label (Part Number) */
 .icon-container {
   z-index: -1;

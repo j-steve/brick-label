@@ -58,6 +58,10 @@ function getCategory(originalCategory) {
       return 'Vehicle, Tail';
     case 'Aircraft':
       return 'Vehicle, Aircraft';
+    case 'Hinge':
+      return 'Joint, Hinge';
+    case 'Turntable':
+      return 'Joint, Turntable';
     default:
       return originalCategory;
   }
@@ -113,7 +117,12 @@ function buildLabelElement(part) {
     .toggleClass('title-numeric', useNumericFont)
     .text(part.title).appendTo($container);
   if (part.titleSize) {$title.css('font-size', part.titleSize);}
-  $('<div>').addClass('part-subtitle').text(part.subtitle).appendTo($container);
+  const $subtitle = $('<div>').addClass('part-subtitle').appendTo($container);
+  if (Array.isArray(part.subtitle)) {
+    part.subtitle.forEach(line => $('<p>').text(line).appendTo($subtitle));
+  } else {
+    $subtitle.text(part.subtitle)
+  }
   if (part.color || part.colorTranslucent || part.color1 && part.color2) {
     $color = $('<div>').addClass('color')
       .toggleClass('translucent', !!part.colorTranslucent)
