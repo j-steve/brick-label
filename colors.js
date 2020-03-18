@@ -7,6 +7,8 @@ const COLOR = {
   white:'#fff',
   green: '#237841',
   brown: '#583927',
+  orange: '#FE8A18',
+  lime: '#BBE90B',
 
   lightGray: '#9BA19D',
   lightBluishGray: '#A0A5A9',

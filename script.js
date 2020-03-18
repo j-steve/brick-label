@@ -9,6 +9,8 @@ const TITLE_REGEX = /^(?:(?<d1>\d+) x (?<d2>\d+)(?: x (?<d3>\d+))? ?)?(?<title>[
 const SUBTITLE_REGEX = /^(?<title>[\w ]+?)(?: with (?<subtitle>[\w ]+))?$/;
 
 LEGOS6.forEach(createLabel);
+addLabelRemainingCounter();
+
 
 function createLabel(part) {
   getBricklinkHtml(part.id).then(([partTitle, category]) => {
@@ -123,7 +125,7 @@ function buildLabelElement(part) {
   } else {
     $subtitle.text(part.subtitle)
   }
-  if (part.color || part.colorTranslucent || part.color1 && part.color2) {
+  if (part.color || part.colorTranslucent != null || part.color1 && part.color2) {
     $color = $('<div>').addClass('color')
       .toggleClass('translucent', !!part.colorTranslucent)
       .appendTo($container);
@@ -148,4 +150,12 @@ function idSort(a, b) {
     return (aLetters || '').localeCompare(bLetters || '');
   }
   return +aDigits < +bDigits ? -1 : 1;
+}
+
+function addLabelRemainingCounter() {
+  const ROW_SIZE = 4;
+  const labelsRemaining = 80 - LEGOS6.length;
+  if (labelsRemaining > ROW_SIZE) {
+    $('<p>').text(labelsRemaining).css('color', 'red').appendTo('body');
+  }
 }
