@@ -8,8 +8,8 @@ const BRICKLINK = {
 const TITLE_REGEX = /^(?:(?<d1>\d+) x (?<d2>\d+)(?: x (?<d3>\d+))? ?)?(?<title>[\w  ]+)?/;
 const SUBTITLE_REGEX = /^(?<title>[\w ]+?)(?: with (?<subtitle>[\w ]+))?$/;
 
-LEGOS6.forEach(createLabel);
-addLabelRemainingCounter();
+LEGOS7.forEach(createLabel);
+addLabelRemainingCounter(LEGOS7);
 
 
 function createLabel(part) {
@@ -47,13 +47,16 @@ function createLabel(part) {
 }
 
 function getCategory(originalCategory) {
+  originalCategory = originalCategory.replace(/^Minifigure/, 'Minifig');
   switch(originalCategory) {
-    case 'Minifigure, Utensil': 
+    case 'Minifig, Utensil': 
       return 'Object';
-    case 'Minifigure, Weapon': 
+    case 'Minifig, Weapon': 
       return 'Object, Weapon';
-    case 'Minifigure, Headgear': 
+    case 'Minifig, Headgear': 
       return 'Object, Apparel';
+    case 'Minifig, Body Part':
+      return 'Minifig, Part';
     case 'Animal, Body Part': 
       return 'Animal, Part';
     case 'Tail':
@@ -152,9 +155,9 @@ function idSort(a, b) {
   return +aDigits < +bDigits ? -1 : 1;
 }
 
-function addLabelRemainingCounter() {
+function addLabelRemainingCounter(partsList) {
   const ROW_SIZE = 4;
-  const labelsRemaining = 80 - LEGOS6.length;
+  const labelsRemaining = 80 - partsList.length;
   if (labelsRemaining > ROW_SIZE) {
     $('<p>').text(labelsRemaining).css('color', 'red').appendTo('body');
   }

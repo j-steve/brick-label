@@ -18,6 +18,7 @@ const COLOR = {
   darkPurple: '#3F3691',
   darkTurquoise: '#008F9B',
   darkRed: '#720E0F',
+  darkTan: '#958A73',
   
   brightGreen: '#4B9F4A',
   pearlGold: '#AA7F2E',
