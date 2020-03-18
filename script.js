@@ -108,8 +108,12 @@ function buildIcon(part, $container) {
   const $iconContainer = $('<div>').addClass('icon-container')
     .appendTo($container);
   $('<img>').addClass('icon').toggleClass('colored', !!part.imageColor || !!part.imagePath).prop('src', part.imgPath).appendTo($iconContainer);
+  buildPartNumber(part, $iconContainer);
+}
+
+function buildPartNumber(part, $container) {
   if (!part.hideId) {
-    $partNum = $('<div>').addClass('part-number').appendTo($iconContainer);
+    $partNum = $('<div>').addClass('part-number').appendTo($container);
     if (part.assorted) {
       $partNum.text('(assorted)')
     } else {
