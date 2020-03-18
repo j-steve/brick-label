@@ -98,9 +98,13 @@ function getBricklinkHtml(partId) {
 
 function buildLabelElement(part) {
   const $container = $('<div>').addClass('part').appendTo('#labels');
-  
+  buildIcon(part, $container);
   $('<div>').addClass('category').text(part.category).appendTo($container);
-  
+  const useNumericFont = part.isTitleNumeric && part.title.split('×').length < 3;
+  buildPartColor(part, $container);
+}
+
+function buildIcon(part, $container) {
   const $iconContainer = $('<div>').addClass('icon-container')
     .appendTo($container);
   $('<img>').addClass('icon').toggleClass('colored', !!part.imageColor || !!part.imagePath).prop('src', part.imgPath).appendTo($iconContainer);
@@ -116,8 +120,9 @@ function buildLabelElement(part) {
       });
     }
   }
+}
 
-  const useNumericFont = part.isTitleNumeric && part.title.split('×').length < 3;
+function buildTitle(part, $container) {
   const $title = $('<div>').addClass('part-title')
     .toggleClass('title-numeric', useNumericFont)
     .text(part.title).appendTo($container);
@@ -128,6 +133,9 @@ function buildLabelElement(part) {
   } else {
     $subtitle.text(part.subtitle)
   }
+}
+
+function buildPartColor(part, $container) {
   if (part.color || part.colorTranslucent != null || part.color1 && part.color2) {
     $color = $('<div>').addClass('color')
       .toggleClass('translucent', !!part.colorTranslucent)
