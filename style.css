@@ -35,7 +35,7 @@ body {
   font-weight: bold;
   background: rgb(100, 100, 100);
   padding: 2px 5px;
-  max-width: 55px;
+  max-width: 60px;
   color:white;
   border-radius:2px;
   white-space: nowrap;
@@ -54,6 +54,10 @@ body {
 
 .part-title:not(.title-numeric) + .part-subtitle {
   margin-top:-4px;
+}
+.part-title-2 {
+  margin: 0;
+  margin-top: -4px;
 }
 
 .part-subtitle  {
@@ -84,6 +88,7 @@ body {
   bottom:5px;
 }
 
+
 img.icon {
   height: 32px;
   width: auto;
@@ -92,6 +97,28 @@ img.icon {
 img.icon.colored {
   opacity: 1;
   filter: grayscale(100%);
+}
+
+.icon-multi {
+  height: 32px;
+}
+.icon-multi .icon-wrapper {
+  display: inline-block;
+}
+.icon-multi .icon-wrapper + .icon-wrapper::before {
+  content: '|';
+  color: rgb(15, 15, 15);
+  font-size:60%;
+  vertical-align: middle;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+.icon-multi img.icon {
+    height: 16px;
+    margin-top: 8px;
+}
+.icon-multi img.icon + img.icon {
+    margin-left: 5px;
 }
 
 .part-number {

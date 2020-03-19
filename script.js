@@ -41,7 +41,6 @@ function createLabel(part) {
     if (part.category == 'Cone') {part.category = 'Brick, Cone';}
     part.isTitleNumeric = part.title.includes('×');
     part.size = part.size || Math.max(...part.title.split('×')) || '';
-    part.imgPath = part.imagePath || `https://img.bricklink.com/ItemImage/PN/${part.imageColor || 11}/${part.id}.png`
     buildLabelElement(part);
   });
 }
@@ -67,6 +66,16 @@ function getCategory(originalCategory) {
       return 'Joint, Hinge';
     case 'Turntable':
       return 'Joint, Turntable';
+    case 'Glass':
+      return 'Window, Glass';
+    case 'Windscreen':
+      return 'Window, Vehicle'
+    case 'Lever':
+      return 'Vehicle';
+    case 'Door Frame':
+      return 'Door, Frame';
+    case 'Container':
+      return 'Object, Storage';
     default:
       return originalCategory;
   }
@@ -100,14 +109,26 @@ function buildLabelElement(part) {
   const $container = $('<div>').addClass('part').appendTo('#labels');
   buildIcon(part, $container);
   $('<div>').addClass('category').text(part.category).appendTo($container);
-  const useNumericFont = part.isTitleNumeric && part.title.split('×').length < 3;
+  buildTitle(part, $container);
   buildPartColor(part, $container);
 }
 
 function buildIcon(part, $container) {
-  const $iconContainer = $('<div>').addClass('icon-container')
-    .appendTo($container);
-  $('<img>').addClass('icon').toggleClass('colored', !!part.imageColor || !!part.imagePath).prop('src', part.imgPath).appendTo($iconContainer);
+  const $iconContainer = $('<div>').addClass('icon-container').appendTo($container);
+  if (part.imageList) {
+    const $multiContainer = $('<div>').addClass('icon-multi').appendTo($iconContainer);
+    part.imageList.forEach(image => {
+      const isUrl = ('' + image).startsWith('http');
+      const imagePath = isUrl ? image : `https://img.bricklink.com/ItemImage/PN/11/${image}.png`
+      const $iconDiv = $('<div>').addClass('icon-wrapper').appendTo($multiContainer);
+      $('<img>').addClass('icon').toggleClass('colored', isUrl).prop('src', imagePath).appendTo($iconDiv);
+    });
+  } else {
+    const imagePath = part.imagePath || `https://img.bricklink.com/ItemImage/PN/${part.imageColor || 11}/${part.id}.png`
+    $('<img>').addClass('icon').toggleClass('colored', !!part.imageColor || !!part.imagePath)
+      .prop('src', imagePath)
+      .appendTo($iconContainer);
+  }
   buildPartNumber(part, $iconContainer);
 }
 
@@ -117,7 +138,7 @@ function buildPartNumber(part, $container) {
     if (part.assorted) {
       $partNum.text('(assorted)')
     } else {
-      const ids = [part.id].concat(part.otherIds || []).filter(x => x);
+      const ids = getAllIds(part);
       ids.sort(idSort);
       ids.forEach(partId => {
         $('<span>').text(partId).appendTo($partNum);
@@ -126,12 +147,23 @@ function buildPartNumber(part, $container) {
   }
 }
 
+function getAllIds(part) {
+  return [part.id].concat(part.otherIds || []).filter(x => x);
+}
+
 function buildTitle(part, $container) {
+  const useNumericFont = part.isTitleNumeric && part.title.split('×').length < 3;
   const $title = $('<div>').addClass('part-title')
     .toggleClass('title-numeric', useNumericFont)
     .text(part.title).appendTo($container);
   if (part.titleSize) {$title.css('font-size', part.titleSize);}
+  if (part.title2) {
+    $('<p>').addClass('part-title-2').text(part.title2).appendTo($title);
+  }
   const $subtitle = $('<div>').addClass('part-subtitle').appendTo($container);
+  if (part.title2) {
+    $subtitle.css('margin-top',  '7px');
+  }
   if (Array.isArray(part.subtitle)) {
     part.subtitle.forEach(line => $('<p>').text(line).appendTo($subtitle));
   } else {

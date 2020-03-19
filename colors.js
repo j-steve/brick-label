@@ -12,6 +12,8 @@ const COLOR = {
 
   lightGray: '#9BA19D',
   lightBluishGray: '#A0A5A9',
+
+  mediumAzure: '#36AEBF',
   mediumDarkFlesh: '#cc702a',
 
   darkBluishGray: '#6c6e68',
@@ -19,7 +21,9 @@ const COLOR = {
   darkTurquoise: '#008F9B',
   darkRed: '#720E0F',
   darkTan: '#958A73',
+  darkPink: '#C870A0',
   
+  reddishBrown: '#582A12',
   brightGreen: '#4B9F4A',
   pearlGold: '#AA7F2E',
 
