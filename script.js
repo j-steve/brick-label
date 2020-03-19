@@ -24,6 +24,7 @@ function createLabel(part) {
       .replace(/ ?1\/3/g, '⅓')
       .replace(/ ?2\/3/g, '⅔')
       .replace(/ ?3\/4/g, '¾')
+      .replace(/ ?1\/2/g, '½')
       .replace(/^\d\d /g, '')
       .replace(' - ', ' ');
     let withSplitSubTitle;
@@ -39,7 +40,7 @@ function createLabel(part) {
       }
     }
     if (part.category == 'Cone') {part.category = 'Brick, Cone';}
-    part.isTitleNumeric = part.title.includes('×');
+    part.isTitleNumeric = part.isTitleNumeric || part.title.includes('×');
     part.size = part.size || Math.max(...part.title.split('×')) || '';
     buildLabelElement(part);
   });
@@ -53,7 +54,7 @@ function getCategory(originalCategory) {
     case 'Minifig, Weapon': 
       return 'Object, Weapon';
     case 'Minifig, Headgear': 
-      return 'Object, Apparel';
+      return 'Minifig, Hat';
     case 'Minifig, Body Part':
       return 'Minifig, Part';
     case 'Animal, Body Part': 
@@ -76,6 +77,12 @@ function getCategory(originalCategory) {
       return 'Door, Frame';
     case 'Container':
       return 'Object, Storage';
+    case 'Minifig, Legs Assembly':
+      return 'Minifig, Legs';
+    case 'Minifig, Torso Assembly':
+      return 'Minifig, Torso';
+    case 'Energy Effect':
+      return 'Energy';
     default:
       return originalCategory;
   }
